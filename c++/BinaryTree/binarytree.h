@@ -18,7 +18,7 @@ class Tree{
         int height()const;
 };
 
-template<typename T,typ>
+template<typename T>
 Tree<T>::Tree(){
     _iroot = new TreeNode<T>();
     _height = -1;
