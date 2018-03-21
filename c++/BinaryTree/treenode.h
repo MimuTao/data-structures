@@ -10,12 +10,16 @@ struct TreeNode{
     Vertex right_child;
     int height;
     TreeNode():left_child(nullptr),parent(nullptr),right_child(nullptr),height(0){};
-    TreeNode(T e):parent(nullptr),left_child(nullptr),right_child(nullptr),data(e),height(0){};
-    Vertex insertAsLeft(T e);
-    Vertex insertAsRight(T e);
+    TreeNode(const T &e):parent(nullptr),left_child(nullptr),right_child(nullptr),data(e),height(0){};
+    Vertex insertAsLeft(const T &e);
+    Vertex insertAsRight(const T &e);
+    // template<typename VST> void travseIn(VST& );
+    // template<typename VST> void travsePre(VST& );
+    // template<typename VST> void travsePre(VST& );
+    // template<typename VST> void travseLevel(VST& )
 };
 template<typename T>
-Vertex TreeNode<T>::insertAsLeft(T e){
+Vertex TreeNode<T>::insertAsLeft(const T &e){
     Vertex node = new TreeNode(e);
     node->parent = this;
     this->left_child = node;
@@ -23,12 +27,11 @@ Vertex TreeNode<T>::insertAsLeft(T e){
 }
 
 template<typename T>
-Vertex TreeNode<T>::insertAsRight(T e){
+Vertex TreeNode<T>::insertAsRight(const T &e){
     Vertex node = new TreeNode(e);
     node->parent = this;
     this->right_child = node;
     return node;
 }
-
 
 #endif
