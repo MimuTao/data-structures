@@ -27,4 +27,9 @@ int main(int argc, char *argv[]){
         cout<<it->data<<" ";
     }
     cout<<endl;
+
+    for(List<int>::iterator iter = list.iter_begin();iter!=list.iter_end();++iter){
+        cout<<*iter<<". ";
+    }
+    cout<<endl;
 }

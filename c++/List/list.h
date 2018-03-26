@@ -16,6 +16,7 @@ class List{
         pNode GetKth(int k) const;
 
     public:
+        class iterator;
         List();
         ~List();
         pNode remove(pNode e);
@@ -26,6 +27,9 @@ class List{
         inline pNode end() const {return tail;}   //return tail node.
         inline pNode rbegin() const {return tail->prior;}
         inline int size() const {return _size;}     // return size of list.
+
+        inline iterator iter_begin() const{return iterator(head->next); }
+        inline iterator iter_end() const{return iterator(tail);}
         // insert operatoion.
         pNode insert(pNode position,T data);
         pNode insert(int position, T data);
@@ -41,6 +45,42 @@ class List{
         pNode find(T data, pNode f_begin, pNode f_end ) const;       //return the pointer to find element else return head/rend(); 
         pNode find(T data) const;
         pNode rfind(T data, pNode rf_begin, pNode rf_end) const;
+        
+        class iterator{
+            protected:
+                Node<T> *node;
+            public:
+                typedef std::forward_iterator_tag iterator_category;
+                typedef T value_type;
+                typedef ptrdiff_t difference_type;
+                typedef T* pointer;
+                typedef T& reference;
+
+                iterator(Node<T> *itN):node(itN){}
+                bool operator==(const iterator &ot){
+                        return node == ot.node;
+                }
+                bool operator!=(const iterator &ot){
+                    return node!=ot.node;
+                }
+                iterator& operator=(const iterator &ot){
+                    node=ot.node;
+                    return &this;
+                }
+                iterator& operator++(){
+                    node=node->next;
+                    return *this;
+                }
+                iterator operator++(int){
+                    iterator ret = *this;
+                    node=node->next;   
+                    return ret;
+                }
+                T& operator*(){
+                    return node->data;
+                }
+        };  
+
 };  
 
 template<typename T>
@@ -68,7 +108,9 @@ template<typename T>
 int List<T>::clear(){
     pNode temp = head->next;
     while(temp !=tail){
+        pNode next_node = temp->next;
         delete temp;
+        temp = next_node;
     }
     head->next = tail;
     tail->prior = head;
